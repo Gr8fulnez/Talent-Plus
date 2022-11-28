@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  client
+  namespace: ms
+  labels:
+    app:  client
+spec:
+  selector:
+    matchLabels:
+      app: client
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  client
+    spec:
+      containers:
+      - name:  client
+        image:  gr8fulnez/client
+        ports:  3000
+      - containerPort:  3000
+         name:  client
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: client
+  namespace: ms
+spec:
+  selector:
+    app: client
+  type: NodePort
+  ports:
+  - name: myjob
+    port: 3000
+    targetPort: 3000
+    nodePort: 30002
+---

@@ -1,0 +1,13 @@
+replicaCount: 1
+image:
+  repository: gr8fulnez/client
+  pullPolicy: IfNotPresent
+service:
+  type: NodePort
+  port: 3000
+  Name: clients
+  targetport: 3000
+
+container:
+  name: clients  
+

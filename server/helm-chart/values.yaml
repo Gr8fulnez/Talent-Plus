@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image: 
+  repository: gr8fulnez/server
+  pullPolicy: IfNotPresent
+
+
+service:
+  type: NodePort
+  port: 8000
+  name: server
+  targetport: 8000
+  nodePort: 32000
+
+container:
+  name: server
+
+cpa: 
+ podAntiAffinity:         
+ requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    -  {{ .Release.Name }} 
+                topologyKey: kubernetes.io/hostname

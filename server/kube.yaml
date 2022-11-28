@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  server
+  namespace: ms
+  labels:
+    app:  server
+spec:
+  selector:
+    matchLabels:
+      app: server
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  server
+    spec:
+      containers:
+      - name:  server
+        image:  gr8fulnez/server
+        ports:
+        - containerPort:  5555
+          name:  server
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+  namespace: ms
+spec:
+  selector:
+    app: server
+  type: NodePort
+  ports:
+  - name: server
+    protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 30001
+---
