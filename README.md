@@ -2,11 +2,8 @@
 
  
 
- 1. Create a simple microservice application 
+1. Create a helm chart
 
- 2. Your application should contain two microservices: a frontend service and a backend service (with or without a database) 
+2. Your helm chart should deploy you two application containers: frontend app and it’s backend into your Kubernetes cluster
 
- 3. You can use any programming language of choice 
-
- 4. Your frontend service should fetch the word “TALENT PLUS” from the backend service using an API call. 
-
+3. configure nginx Ingress to access your applications
